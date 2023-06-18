@@ -1,0 +1,9 @@
+@use 'styles/style.scss' as *;
+
+.app {
+  @include regularText;
+  background-color: $bg-color-white;
+  display: flex;
+  justify-content: center;
+  color: $color-grey;
+}

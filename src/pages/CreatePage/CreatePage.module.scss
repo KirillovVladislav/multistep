@@ -1,0 +1,22 @@
+@use 'styles/style.scss' as *;
+
+.container {
+  width: 900px;
+  height: 800px;
+  margin-top: 24px;
+  background-color: $color-white;
+  border-radius: 24px;
+  padding: 62px 110px 80px;
+  .form {
+    margin-top: 66px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 24px;
+
+    margin-top: 64px;
+  }
+}

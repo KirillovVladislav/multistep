@@ -1,0 +1,54 @@
+@use 'styles/style.scss' as *;
+
+.container {
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid $color-black-alpha8;
+
+  .avatar {
+    @include regularText;
+    font-size: 40px;
+    line-height: 52px;
+    color: $color-blue-grey;
+    background-color: $bg-color-preset;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: $color-black-alpha16;
+    }
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+
+    .fullname {
+      @include semiBoldText;
+      color: $color-grey;
+    }
+
+    .contacts {
+      display: flex;
+      column-gap: 16px;
+
+      .contact {
+        @include regularText12;
+        color: $color-purple;
+        a {
+          display: flex;
+          column-gap: 6px;
+        }
+      }
+    }
+  }
+}

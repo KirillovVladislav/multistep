@@ -1,0 +1,46 @@
+@use 'styles/style.scss' as *;
+
+.popup {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  row-gap: 24px;
+  justify-content: center;
+
+  .buttton {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    outline: none;
+  }
+
+  .errors {
+    @include semiBoldText;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.text {
+  @include semiBoldText;
+  color: $color-grey;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+
+  .circle {
+    margin: 26px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: $color-emer-alpha;
+  }
+}

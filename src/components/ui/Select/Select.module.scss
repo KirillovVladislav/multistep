@@ -1,0 +1,33 @@
+@use 'styles/style.scss' as *;
+
+.container {
+  max-width: 300px;
+  position: relative;
+
+  .select {
+    appearance: none;
+    background-image: url('../../../src/assets/icons/ArrowDown.svg');
+    background-repeat: no-repeat;
+    font-size: 14px;
+    cursor: pointer;
+    background-position: right 12px top 50%;
+    border: 1px solid $color-black-alpha16;
+    color: $color-black-alpha48;
+    width: 100%;
+    border-radius: 4px;
+    margin-top: 8px;
+    padding: 12px;
+
+    &:focus {
+      outline: 0.2px solid $color-black-alpha32;
+    }
+  }
+
+  .option {
+  }
+  .error {
+    @include regularText12;
+    color: $color-red;
+    margin-top: 8px;
+  }
+}

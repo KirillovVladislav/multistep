@@ -1,0 +1,80 @@
+@use 'styles/style.scss' as *;
+
+.container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 8px;
+  background-color: $color-white-grey;
+
+  .line {
+    flex: 1;
+    height: 8px;
+
+    &.progress {
+      background-color: $color-purple;
+      transform: scaleX(1.06);
+      z-index: 1;
+    }
+  }
+
+  .circle {
+    z-index: 5;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: $color-tertiart;
+
+    .step {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      color: $color-secondary;
+      top: 24px;
+      &.purple {
+        color: $color-purple;
+      }
+
+      &.stepActive {
+        font-weight: 600;
+        color: $color-purple;
+      }
+    }
+  }
+
+  .inActive {
+    background-color: $color-purple;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 3.2px;
+      height: 3.2px;
+      border-radius: 50%;
+      background-color: $color-white;
+    }
+  }
+
+  .success {
+    background-color: $color-purple;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 8px;
+      background: url('../../assets/icons/Success.svg') no-repeat center;
+      background-size: cover;
+    }
+
+    background-size: cover;
+    background-position: center center;
+  }
+}

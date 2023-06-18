@@ -1,0 +1,34 @@
+@use 'styles/style.scss' as *;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@font-face {
+  font-family: 'SBSansInterface';
+  src: url('../src/assets/fonts/SBSansInterface-Regular.woff2') format('woff2'),
+    url('../src/assets/fonts/SBSansInterface-Semibold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.label {
+  padding-bottom: 8px;
+}

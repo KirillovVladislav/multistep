@@ -1,0 +1,21 @@
+@use 'styles/style.scss' as *;
+
+.flex {
+  position: relative;
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+
+  .label {
+    margin-bottom: 8px;
+  }
+}
+
+.checkContainer {
+  display: flex;
+  flex-direction: column;
+
+  .radio {
+    margin-bottom: 8px;
+  }
+}

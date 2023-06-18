@@ -1,0 +1,18 @@
+@use 'styles/style.scss' as *;
+
+.label {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  .check {
+    width: 16px;
+    height: 16px;
+
+    border: 1px solid $color-black-alpha24;
+    cursor: pointer;
+
+    &:checked {
+      background-color: blue;
+    }
+  }
+}

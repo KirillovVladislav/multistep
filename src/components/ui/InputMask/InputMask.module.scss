@@ -1,0 +1,40 @@
+@use 'styles/style.scss' as *;
+
+.inputField {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
+  .label {
+    color: $color-grey;
+  }
+
+  .input {
+    @include regularText;
+    max-width: 300px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid $color-black-alpha16;
+    background-color: $color-white;
+    color: $color-black-alpha48;
+
+    &:focus {
+      border: 1px solid $color-black-alpha32;
+    }
+
+    &:disabled {
+      background-color: $color-black-alpha4;
+    }
+
+    &::placeholder {
+      color: inherit;
+    }
+  }
+
+  .error {
+    @include regularText12;
+    color: $color-red;
+  }
+}

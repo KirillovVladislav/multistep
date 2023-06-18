@@ -1,0 +1,14 @@
+@use 'styles/style.scss' as *;
+
+.form {
+  margin-top: 24px;
+  .inputWrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+  }
+
+  .button {
+    margin-top: 48px;
+  }
+}

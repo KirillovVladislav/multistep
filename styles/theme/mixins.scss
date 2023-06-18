@@ -1,0 +1,20 @@
+@mixin regularText {
+  font-family: 'SBSansInterface', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+@mixin regularText12 {
+  font-family: 'SBSansInterface', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+@mixin semiBoldText {
+  font-family: 'SBSansInterface', sans-serif;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+}
