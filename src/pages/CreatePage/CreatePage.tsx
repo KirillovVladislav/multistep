@@ -7,18 +7,22 @@ import { AboutStep } from './AboutStep/AbouStep'
 import { AdvantagesStep } from './AdvantagesStep/Advantages'
 import { Button } from '../../components/ui/Button/Button'
 import { Stepper } from '../../components/Stepper/Stepper'
+import { ErrorPopup } from '../../components/ErrorPopup/ErrorPopup'
+import { SuccessPopup } from '../../components/SuccessPopup/SuccessPopup'
 import { Modal } from '../../components/ui/Modal/Modal'
 
+import { useModal } from '../../shared/hooks/useModal'
 import { type CreateForm } from '../../shared/types/form'
 import { ERoutes } from '../../shared/types/enums'
 import { useMultistepForm } from '../../shared/hooks/useMultistepForm'
+import { useCreateTask } from '../../shared/services/api'
 
 import s from './CreatePage.module.scss'
-import { useState } from 'react'
-
-import { ErrorPopup } from '../../components/ErrorPopup/ErrorPopup'
 
 export const CreatePage = () => {
+  const successModal = useModal()
+  const errorModal = useModal()
+  const createTask = useCreateTask()
   const navigate = useNavigate()
   const {
     steps,
@@ -37,15 +41,23 @@ export const CreatePage = () => {
   })
   const { handleSubmit } = methods
   const onSubmitHandler: SubmitHandler<CreateForm> = (data) => {
-    // const newData = {
-    //   ...data,
-    //   advantages: data.advantages?.map((el) => el.value)
-    // }
+    const newData = {
+      ...data,
+      advantages: data.advantages?.map((el) => el.value),
+      radio: Number(data.radio)
+    }
     console.log(data)
     if (!isLastStep) {
       next()
     } else {
-      alert('Successful Account Creation')
+      createTask.mutate(newData, {
+        onSuccess: () => {
+          successModal.open()
+        },
+        onError: () => {
+          errorModal.open()
+        }
+      })
     }
   }
 
@@ -55,7 +67,7 @@ export const CreatePage = () => {
     }
     back()
   }
-  const [openModal, setIsOpenModal] = useState(false)
+
   return (
     <div className={s.container}>
       <Stepper currentIndex={currentStepIndex} steps={steps} />
@@ -72,9 +84,12 @@ export const CreatePage = () => {
           </div>
         </form>
       </FormProvider>
-      <Button onClick={() => setIsOpenModal(true)}>openModal</Button>
-      <Modal isOpen={openModal}>
-        <ErrorPopup onClose={() => setIsOpenModal(false)} />
+
+      <Modal isOpen={successModal.isOpen}>
+        <SuccessPopup />
+      </Modal>
+      <Modal isOpen={errorModal.isOpen}>
+        <ErrorPopup onClose={errorModal.close} />
       </Modal>
     </div>
   )

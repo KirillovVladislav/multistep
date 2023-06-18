@@ -19,3 +19,14 @@ export interface CreateForm {
   radio: string
   checkbox: string[]
 }
+
+export interface TaskForm {
+  nickname: string
+  name: string
+  sername: string
+  sex: Sex
+  advantages: string[]
+  about: string
+  radio: number
+  checkbox: string[]
+}
