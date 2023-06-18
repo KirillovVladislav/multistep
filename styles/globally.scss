@@ -14,6 +14,11 @@
   font-style: normal;
 }
 
+body {
+  background-color: $bg-color-white;
+  padding: 0 24px;
+}
+
 a {
   text-decoration: none;
   color: inherit;

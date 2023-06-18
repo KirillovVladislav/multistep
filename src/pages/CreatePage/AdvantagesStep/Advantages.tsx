@@ -39,7 +39,9 @@ export const AdvantagesStep = () => {
     remove(index)
   }
   const addInput = () => {
-    append({ value: '' })
+    if (fields.length < 5) {
+      append({ value: '' })
+    }
   }
   return (
     <div className='flex'>

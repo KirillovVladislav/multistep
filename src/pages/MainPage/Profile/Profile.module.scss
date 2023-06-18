@@ -7,6 +7,11 @@
   padding-bottom: 24px;
   border-bottom: 1px solid $color-black-alpha8;
 
+  @include mobile {
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
   .avatar {
     @include regularText;
     font-size: 40px;

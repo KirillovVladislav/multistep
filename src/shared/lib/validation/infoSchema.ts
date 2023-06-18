@@ -30,6 +30,7 @@ export const stepsSchema = [
           value: yup.string().required('Обязательное поле').trim()
         })
       )
+
       .required('Обязательное поле')
   }),
   // validation for step3
