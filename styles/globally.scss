@@ -43,4 +43,8 @@ ul {
   margin-top: 67px;
   display: flex;
   justify-content: space-between;
+
+  @include tablet {
+    margin-top: 34px;
+  }
 }

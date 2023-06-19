@@ -1,8 +1,9 @@
 @use 'styles/style.scss' as *;
 
 .container {
-  width: 900px;
-  height: 800px;
+  max-width: 900px;
+  width: 100%;
+  min-height: max-content;
   margin-top: 24px;
   background-color: $color-white;
   border-radius: 24px;
