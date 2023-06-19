@@ -39,10 +39,11 @@ const formSlice = createSlice({
   reducers: {
     updateFormData: (state, action: PayloadAction<Partial<FormState>>) => {
       return { ...state, ...action.payload }
-    }
+    },
+    resetFormData: () => initialState
   }
 })
 
-export const { updateFormData } = formSlice.actions
+export const { updateFormData, resetFormData } = formSlice.actions
 
 export default formSlice.reducer

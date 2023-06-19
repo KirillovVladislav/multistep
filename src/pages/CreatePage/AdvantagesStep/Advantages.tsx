@@ -1,21 +1,21 @@
 import { useFieldArray, useForm, type SubmitHandler } from 'react-hook-form'
 import { type FC } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import cn from 'classnames'
 
 import { Input } from '../../../components/ui/Input/Input'
 import { Button } from '../../../components/ui/Button/Button'
 import { InputCheck } from '../../../components/ui/InputCheck/InputCheck'
+import { ErrorField } from '../../../components/ui/ErrorField/ErrorField'
 
 import Plus from '../../../assets/icons/Plus.svg'
 import Delete from '../../../assets/icons/Delete.svg'
 import { checkOptions } from '../../../shared/types/enums'
-
 import { advantagesSchema } from '../../../shared/lib/validation/advantagesSchema'
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux'
 import { updateFormData, type FormState } from '../../../store/slices/formSlice'
 
 import s from './Advantages.module.scss'
-import { ErrorField } from '../../../components/ui/ErrorField/ErrorField'
 
 interface AdvdantagesStepProps {
   next: () => void
@@ -44,9 +44,7 @@ export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
     remove(index)
   }
   const addInput = () => {
-    if (fields.length < 5) {
-      append({ value: '' })
-    }
+    append({ value: '' })
   }
   const onSubmitHandler: SubmitHandler<Partial<FormState>> = (data) => {
     dispatch(updateFormData(data))
@@ -72,7 +70,7 @@ export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
                 </div>
 
                 <Button
-                  className={s.addButton}
+                  className={cn(s.addButton, { [s.error]: errors.advantages?.[index]?.value })}
                   variant='outline'
                   onClick={() => {
                     handleRemoveInput(index)
@@ -89,7 +87,7 @@ export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
             onClick={addInput}
             type='button'
             variant='secondary'
-            className={s.button}
+            className={s.delete}
             id='button-add'
           >
             <img alt='plus' src={Plus} />

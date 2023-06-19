@@ -10,7 +10,7 @@ export interface formData {
   nickname: string
   name: string
   sername: string
-  sex: Sex
+  sex: string
   advantages: string[]
   radio: number
   checkbox: number[]

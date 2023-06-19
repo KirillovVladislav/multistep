@@ -9,7 +9,7 @@ import { Modal } from '../../../components/ui/Modal/Modal'
 import { ErrorPopup } from '../../../components/ErrorPopup/ErrorPopup'
 
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux'
-import { updateFormData, type FormState } from '../../../store/slices/formSlice'
+import { updateFormData, type FormState, resetFormData } from '../../../store/slices/formSlice'
 import { aboutSchema } from '../../../shared/lib/validation/aboutSchema'
 import { useSubmitFormMutation } from '../../../shared/services/api'
 import { useModal } from '../../../shared/hooks/useModal'
@@ -32,7 +32,7 @@ export const AboutStep: FC<AboutStepProps> = ({ back, next }) => {
     handleSubmit,
     watch,
     formState: { errors }
-  } = useForm<Partial<FormState>>({
+  } = useForm<FormState>({
     mode: 'onChange',
     resolver: yupResolver(aboutSchema),
     defaultValues: formData
@@ -50,6 +50,7 @@ export const AboutStep: FC<AboutStepProps> = ({ back, next }) => {
     }
     try {
       await submitForm(newData).unwrap()
+      dispatch(resetFormData())
       successModal.open()
     } catch (error) {
       console.log(error)
