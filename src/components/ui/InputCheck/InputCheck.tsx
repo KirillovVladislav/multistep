@@ -18,7 +18,6 @@ export const InputCheck = forwardRef<HTMLInputElement, InputCheckProps>(
     return (
       <label className={cn(s.label, className)}>
         <input ref={ref} className={s.check} type={type} {...rest} />
-        {type === 'radio' && <span className={s.checked} />}
         <span className={s.text}>{label}</span>
         {error && <span>{error?.message}</span>}
       </label>

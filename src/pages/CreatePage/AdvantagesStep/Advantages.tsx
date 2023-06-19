@@ -121,6 +121,7 @@ export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
               name='radio'
               label={key}
               value={value}
+              defaultChecked={index === 0}
               id={`field-radio-group-option-${index + 1}`}
             />
           ))}

@@ -1,3 +1,4 @@
+import { type FC } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -7,7 +8,6 @@ import { Button } from '../../../components/ui/Button/Button'
 
 import { Sex } from '../../../shared/types/enums'
 import { infoSchema } from '../../../shared/lib/validation/infoSchema'
-import { type FC } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux'
 import { updateFormData, type FormState } from '../../../store/slices/formSlice'
 

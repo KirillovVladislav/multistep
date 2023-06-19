@@ -10,6 +10,7 @@ import { mainSchema } from '../../../shared/lib/validation/mainSchema'
 import { ERoutes } from '../../../shared/types/enums'
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux'
 import { updateFormData, type FormState } from '../../../store/slices/formSlice'
+
 import s from './MainForm.module.scss'
 
 export const MainForm = () => {
