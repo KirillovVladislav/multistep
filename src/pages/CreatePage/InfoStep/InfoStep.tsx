@@ -23,13 +23,13 @@ export const InfoStep: FC<InfoStepProps> = ({ next, back }) => {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<Partial<FormState>>({
+  } = useForm<FormState>({
     mode: 'onChange',
     resolver: yupResolver(infoSchema),
     defaultValues: formData
   })
 
-  const onSubmitHandler: SubmitHandler<Partial<FormState>> = (data) => {
+  const onSubmitHandler: SubmitHandler<FormState> = (data) => {
     console.log(data)
     dispatch(updateFormData(data))
     next()

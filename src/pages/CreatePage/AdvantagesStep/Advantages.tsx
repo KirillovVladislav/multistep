@@ -30,7 +30,7 @@ export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
     handleSubmit,
     control,
     formState: { errors }
-  } = useForm<Partial<FormState>>({
+  } = useForm<FormState>({
     mode: 'onChange',
     resolver: yupResolver(advantagesSchema),
     defaultValues: formData
@@ -46,7 +46,7 @@ export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
   const addInput = () => {
     append({ value: '' })
   }
-  const onSubmitHandler: SubmitHandler<Partial<FormState>> = (data) => {
+  const onSubmitHandler: SubmitHandler<FormState> = (data) => {
     dispatch(updateFormData(data))
     next()
   }

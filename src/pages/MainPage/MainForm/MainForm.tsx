@@ -21,12 +21,12 @@ export const MainForm = () => {
     register,
     handleSubmit,
     formState: { errors, isValid }
-  } = useForm<Partial<FormState>>({
+  } = useForm<FormState>({
     defaultValues: formData,
     resolver: yupResolver(mainSchema)
   })
 
-  const onSubmitHandler: SubmitHandler<Partial<FormState>> = (data) => {
+  const onSubmitHandler: SubmitHandler<FormState> = (data) => {
     dispatch(updateFormData(data))
     if (isValid) {
       navigate(ERoutes.CREATE)
