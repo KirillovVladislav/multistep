@@ -22,6 +22,7 @@ export const InfoStep: FC<InfoStepProps> = ({ next, back }) => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors }
   } = useForm<FormState>({
     mode: 'onChange',
@@ -33,7 +34,11 @@ export const InfoStep: FC<InfoStepProps> = ({ next, back }) => {
     dispatch(updateFormData(data))
     next()
   }
-
+  const handleBack = () => {
+    const watchedValues = watch()
+    dispatch(updateFormData(watchedValues))
+    back()
+  }
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
       <div className={'flex'}>
@@ -80,7 +85,7 @@ export const InfoStep: FC<InfoStepProps> = ({ next, back }) => {
       </div>
 
       <div className={'buttons'}>
-        <Button variant='secondary' onClick={back}>
+        <Button variant='secondary' onClick={handleBack}>
           Назад
         </Button>
         <Button type='submit'>Далее</Button>
