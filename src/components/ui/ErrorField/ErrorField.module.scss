@@ -1,0 +1,7 @@
+@use 'styles/style.scss' as *;
+
+.error {
+  @include regularText12;
+  margin-top: 8px;
+  color: $color-red;
+}

@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux'
 import { updateFormData, type FormState } from '../../../store/slices/formSlice'
 
 import s from './Advantages.module.scss'
+import { ErrorField } from '../../../components/ui/ErrorField/ErrorField'
 
 interface AdvdantagesStepProps {
   next: () => void
@@ -108,6 +109,7 @@ export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
                 id={`field-checkbox-group-option-${index + 1}`}
               />
             ))}
+            <ErrorField error={errors.checkbox} />
           </div>
         }
 

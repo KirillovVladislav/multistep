@@ -7,29 +7,27 @@ import { Input } from '../../../components/ui/Input/Input'
 import { InputMask } from '../../../components/ui/InputMask/InputMask'
 
 import { mainSchema } from '../../../shared/lib/validation/mainSchema'
-import { type InfoForm } from '../../../shared/types/form'
 import { ERoutes } from '../../../shared/types/enums'
-
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux'
+import { updateFormData, type FormState } from '../../../store/slices/formSlice'
 import s from './MainForm.module.scss'
 
-const initialState = {
-  phone: '+79528971785',
-  email: 'js.kirillov@yandex.ru'
-}
-
 export const MainForm = () => {
+  const dispatch = useAppDispatch()
+  const formData = useAppSelector((state) => state.form)
   const navigate = useNavigate()
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid }
-  } = useForm<InfoForm>({
-    defaultValues: initialState,
+  } = useForm<Partial<FormState>>({
+    defaultValues: formData,
     resolver: yupResolver(mainSchema)
   })
 
-  const onSubmitHandler: SubmitHandler<InfoForm> = (data) => {
+  const onSubmitHandler: SubmitHandler<Partial<FormState>> = (data) => {
+    dispatch(updateFormData(data))
     if (isValid) {
       navigate(ERoutes.CREATE)
     }

@@ -19,7 +19,7 @@ export interface formData {
 
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.sbercloud.ru/content/v1/bootcamp/fronten' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.sbercloud.ru/content/v1/bootcamp/frontend' }),
   endpoints: (builder) => ({
     submitForm: builder.mutation<formData, formData>({
       query: (formData) => ({

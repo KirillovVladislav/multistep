@@ -1,5 +1,8 @@
-import { type Advdantages } from '../../shared/types/form'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+
+export interface Advdantages {
+  value: string
+}
 
 export interface FormState {
   phone: string
@@ -7,7 +10,7 @@ export interface FormState {
   nickname: string
   name: string
   sername: string
-  sex: Sex
+  sex: string
   advantages: Advdantages[]
   radio: string
   checkbox: string[]
@@ -23,7 +26,7 @@ const initialState: FormState = {
   nickname: '',
   name: '',
   sername: '',
-  sex: Sex.man,
+  sex: '',
   advantages: [{ value: '' }, { value: '' }, { value: '' }],
   checkbox: [],
   radio: '',
