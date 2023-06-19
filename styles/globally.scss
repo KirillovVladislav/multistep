@@ -16,7 +16,7 @@
 
 body {
   background-color: $bg-color-white;
-  padding: 0 24px;
+  padding: 0 15px;
 }
 
 a {
@@ -29,6 +29,7 @@ ul {
 }
 
 .flex {
+  margin-top: 67px;
   display: flex;
   flex-direction: column;
   row-gap: 24px;
@@ -36,4 +37,10 @@ ul {
 
 .label {
   padding-bottom: 8px;
+}
+
+.buttons {
+  margin-top: 67px;
+  display: flex;
+  justify-content: space-between;
 }

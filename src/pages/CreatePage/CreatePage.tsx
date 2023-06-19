@@ -1,90 +1,40 @@
 import { useNavigate } from 'react-router-dom'
-import { useForm, type SubmitHandler, FormProvider } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 
 import { InfoStep } from './InfoStep/InfoStep'
 import { AboutStep } from './AboutStep/AbouStep'
 import { AdvantagesStep } from './AdvantagesStep/Advantages'
-import { Button } from '../../components/ui/Button/Button'
+
 import { Stepper } from '../../components/Stepper/Stepper'
 import { ErrorPopup } from '../../components/ErrorPopup/ErrorPopup'
 import { SuccessPopup } from '../../components/SuccessPopup/SuccessPopup'
 import { Modal } from '../../components/ui/Modal/Modal'
-
-import { useModal } from '../../shared/hooks/useModal'
-import { type CreateForm } from '../../shared/types/form'
 import { ERoutes } from '../../shared/types/enums'
-import { useMultistepForm } from '../../shared/hooks/useMultistepForm'
-import { useCreateTask } from '../../shared/services/api'
+import { useModal } from '../../shared/hooks/useModal'
 
 import s from './CreatePage.module.scss'
+import { useState } from 'react'
 
 export const CreatePage = () => {
+  const [currentIndex, setCurrentIndex] = useState(0)
   const successModal = useModal()
   const errorModal = useModal()
-  const createTask = useCreateTask()
   const navigate = useNavigate()
-  const {
-    steps,
-    isFirtsStep,
-    currentValidationSchema,
-    currentStepIndex,
-    step,
-    isLastStep,
-    next,
-    back
-  } = useMultistepForm([<InfoStep />, <AdvantagesStep />, <AboutStep />])
-
-  const methods = useForm<CreateForm>({
-    resolver: yupResolver(currentValidationSchema),
-    mode: 'onChange'
-  })
-  const { handleSubmit } = methods
-  const onSubmitHandler: SubmitHandler<CreateForm> = (data) => {
-    const newData = {
-      ...data,
-      advantages: data.advantages?.map((el) => el.value),
-      radio: Number(data.radio)
-    }
-    console.log(data)
-    if (!isLastStep) {
-      next()
-    } else {
-      createTask.mutate(newData, {
-        onSuccess: () => {
-          successModal.open()
-        },
-        onError: () => {
-          errorModal.open()
-        }
-      })
-    }
+  const next = () => {
+    setCurrentIndex((prev) => prev + 1)
   }
-
-  const onClickBack = () => {
-    if (isFirtsStep) {
+  const back = () => {
+    if (currentIndex === 0) {
       navigate(ERoutes.MAIN)
+    } else {
+      setCurrentIndex((prev) => prev - 1)
     }
-    back()
   }
-
   return (
     <div className={s.container}>
-      <Stepper currentIndex={currentStepIndex} steps={steps} />
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmitHandler)} className={s.form}>
-          {step}
-          <div className={s.buttons}>
-            <Button type='button' onClick={onClickBack} variant='secondary' id='button-back'>
-              Назад
-            </Button>
-            <Button type='submit' id={isLastStep ? 'button-send' : 'button-next'}>
-              {isLastStep ? 'Отправить' : 'Далее'}
-            </Button>
-          </div>
-        </form>
-      </FormProvider>
-
+      <Stepper currentIndex={currentIndex} steps={[1, 2, 3]} />
+      {currentIndex === 0 && <InfoStep next={next} back={back} />}
+      {currentIndex === 1 && <AdvantagesStep next={next} back={back} />}
+      {currentIndex === 2 && <AboutStep next={next} back={back} />}
       <Modal isOpen={successModal.isOpen}>
         <SuccessPopup />
       </Modal>

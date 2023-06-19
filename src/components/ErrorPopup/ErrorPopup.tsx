@@ -25,9 +25,11 @@ export const ErrorPopup: FC<ErrorPopupProps> = ({ onClose }) => {
         </div>
       </div>
 
-      <Button id='button-close' onClick={onClose}>
-        Закрыть
-      </Button>
+      <div className={s.button}>
+        <Button id='button-close' onClick={onClose}>
+          Закрыть
+        </Button>
+      </div>
     </div>
   )
 }

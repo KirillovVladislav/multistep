@@ -28,5 +28,5 @@ export interface TaskForm {
   advantages: string[]
   about: string
   radio: number
-  checkbox: string[]
+  checkbox: number[]
 }

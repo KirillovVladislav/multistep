@@ -1,21 +1,34 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
-import { type TaskForm } from '../types/form'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const createTask = async (data: TaskForm) => {
-  const response = await axios.post('https://api.sbercloud.ru/content/v1/bootcamp/frontend', data)
-  return response.data
+export enum Sex {
+  man = 'man',
+  woman = 'woman'
+}
+export interface formData {
+  phone: string
+  email: string
+  nickname: string
+  name: string
+  sername: string
+  sex: Sex
+  advantages: string[]
+  radio: number
+  checkbox: number[]
+  about: string
 }
 
-export const useCreateTask = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation(createTask, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('tasks')
-    },
-    onError: (error) => {
-      console.log(error)
-    }
+export const api = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.sbercloud.ru/content/v1/bootcamp/fronten' }),
+  endpoints: (builder) => ({
+    submitForm: builder.mutation<formData, formData>({
+      query: (formData) => ({
+        url: '/',
+        method: 'POST',
+        body: formData
+      })
+    })
   })
-}
+})
+
+export const { useSubmitFormMutation } = api

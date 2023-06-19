@@ -1,5 +1,9 @@
 @use 'styles/style.scss' as *;
 
+.container {
+  margin-top: 67px;
+}
+
 .lengthChars {
   display: flex;
   justify-content: flex-end;

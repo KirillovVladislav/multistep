@@ -44,3 +44,8 @@
     background-color: $color-emer-alpha;
   }
 }
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+}

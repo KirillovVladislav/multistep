@@ -1,5 +1,6 @@
-import { useFieldArray, useFormContext, Controller } from 'react-hook-form'
-import { useEffect } from 'react'
+import { useFieldArray, useForm, type SubmitHandler } from 'react-hook-form'
+import { type FC } from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Input } from '../../../components/ui/Input/Input'
 import { Button } from '../../../components/ui/Button/Button'
@@ -8,32 +9,35 @@ import { InputCheck } from '../../../components/ui/InputCheck/InputCheck'
 import Plus from '../../../assets/icons/Plus.svg'
 import Delete from '../../../assets/icons/Delete.svg'
 import { checkOptions } from '../../../shared/types/enums'
-import { type Advdantages } from '../../../shared/types/form'
+
+import { advantagesSchema } from '../../../shared/lib/validation/advantagesSchema'
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux'
+import { updateFormData, type FormState } from '../../../store/slices/formSlice'
 
 import s from './Advantages.module.scss'
 
-interface FormData {
-  advantages: Advdantages[]
-  radio: number
-  checkbox: string[]
+interface AdvdantagesStepProps {
+  next: () => void
+  back: () => void
 }
 
-export const AdvantagesStep = () => {
+export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
+  const dispatch = useAppDispatch()
+  const formData = useAppSelector((state) => state.form)
   const {
     register,
+    handleSubmit,
     control,
     formState: { errors }
-  } = useFormContext<FormData>()
+  } = useForm<Partial<FormState>>({
+    mode: 'onChange',
+    resolver: yupResolver(advantagesSchema),
+    defaultValues: formData
+  })
   const { fields, append, remove } = useFieldArray({
     name: 'advantages',
     control
   })
-
-  useEffect(() => {
-    if (fields.length === 0) {
-      append([{ value: '' }, { value: '' }, { value: '' }])
-    }
-  }, [])
 
   const handleRemoveInput = (index: number) => {
     remove(index)
@@ -43,84 +47,92 @@ export const AdvantagesStep = () => {
       append({ value: '' })
     }
   }
+  const onSubmitHandler: SubmitHandler<Partial<FormState>> = (data) => {
+    dispatch(updateFormData(data))
+    next()
+  }
+
   return (
-    <div className='flex'>
-      <div>
-        <span className={s.label}>Advantages</span>
-        {fields.map(({ id }, index) => (
-          <>
-            <div key={id} className={s.flex}>
-              <div>
-                <Input
-                  {...register(`advantages.${index}.value`)}
-                  placeholder='Placeholder...'
-                  name={`advantages.${index}.value`}
-                  id={`field-advantages-${index + 1}`}
-                  error={errors.advantages?.[index]?.value}
-                />
+    <form onSubmit={handleSubmit(onSubmitHandler)}>
+      <div className='flex'>
+        <div>
+          <span className={s.label}>Advantages</span>
+          {fields.map(({ id }, index) => (
+            <>
+              <div key={id} className={s.flex}>
+                <div>
+                  <Input
+                    {...register(`advantages.${index}.value`)}
+                    placeholder='Placeholder...'
+                    name={`advantages.${index}.value`}
+                    id={`field-advantages-${index + 1}`}
+                    error={errors.advantages?.[index]?.value}
+                  />
+                </div>
+
+                <Button
+                  className={s.addButton}
+                  variant='outline'
+                  onClick={() => {
+                    handleRemoveInput(index)
+                  }}
+                  id={`button-remove-${index + 1}`}
+                >
+                  <img src={Delete} alt='delete'></img>
+                </Button>
               </div>
+            </>
+          ))}
 
-              <Button
-                className={s.addButton}
-                variant='outline'
-                onClick={() => {
-                  handleRemoveInput(index)
-                }}
-                id={`button-remove-${index + 1}`}
-              >
-                <img src={Delete} alt='delete'></img>
-              </Button>
-            </div>
-          </>
-        ))}
+          <Button
+            onClick={addInput}
+            type='button'
+            variant='secondary'
+            className={s.button}
+            id='button-add'
+          >
+            <img alt='plus' src={Plus} />
+          </Button>
+        </div>
 
-        <Button
-          onClick={addInput}
-          type='button'
-          variant='secondary'
-          className={s.button}
-          id='button-add'
-        >
-          <img alt='plus' src={Plus} />
-        </Button>
-      </div>
+        {
+          <div className={s.checkContainer}>
+            <span className={s.radio}>Checkbox group</span>
+            {Object.entries(checkOptions).map(([key, value], index) => (
+              <InputCheck
+                {...register('checkbox')}
+                key={value}
+                type='checkbox'
+                label={key}
+                value={value}
+                id={`field-checkbox-group-option-${index + 1}`}
+              />
+            ))}
+          </div>
+        }
 
-      {
         <div className={s.checkContainer}>
-          <span className={s.radio}>Checkbox group</span>
+          <span className={s.radio}>Radio group</span>
           {Object.entries(checkOptions).map(([key, value], index) => (
-            <Controller
+            <InputCheck
+              {...register('radio')}
+              type='radio'
               key={key}
-              control={control}
-              name={`checkbox.${index}`}
-              render={({ field }) => (
-                <InputCheck
-                  {...field}
-                  type='checkbox'
-                  label={key}
-                  value={value}
-                  id={`field-checkbox-group-option-${index + 1}`}
-                />
-              )}
+              name='radio'
+              label={key}
+              value={value}
+              id={`field-radio-group-option-${index + 1}`}
             />
           ))}
         </div>
-      }
-
-      <div className={s.checkContainer}>
-        <span className={s.radio}>Radio group</span>
-        {Object.entries(checkOptions).map(([key, value], index) => (
-          <InputCheck
-            {...register('radio')}
-            type='radio'
-            key={key}
-            name='radio'
-            label={key}
-            value={value}
-            id={`field-radio-group-option-${index + 1}`}
-          />
-        ))}
       </div>
-    </div>
+
+      <div className={'buttons'}>
+        <Button variant='secondary' onClick={back}>
+          Назад
+        </Button>
+        <Button type='submit'>Далее</Button>
+      </div>
+    </form>
   )
 }

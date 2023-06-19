@@ -14,8 +14,8 @@ export enum Check {
   THIRD_OPTION = '3'
 }
 
-export const checkOptions: Record<Check, number> = {
-  [Check.FIRST_OPTION]: 1,
-  [Check.SECOND_OPTION]: 2,
-  [Check.THIRD_OPTION]: 3
+export const checkOptions: Record<Check, string> = {
+  [Check.FIRST_OPTION]: '1',
+  [Check.SECOND_OPTION]: '2',
+  [Check.THIRD_OPTION]: '3'
 }
