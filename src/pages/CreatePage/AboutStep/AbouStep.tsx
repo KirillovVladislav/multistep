@@ -30,6 +30,7 @@ export const AboutStep: FC<AboutStepProps> = ({ back, next }) => {
   const {
     register,
     handleSubmit,
+
     watch,
     formState: { errors }
   } = useForm<FormState>({
@@ -39,6 +40,11 @@ export const AboutStep: FC<AboutStepProps> = ({ back, next }) => {
   })
 
   const lengthChars = watch('about')?.replace(/\s/g, '').length
+  const watchedValues = watch()
+  const handleBack = () => {
+    dispatch(updateFormData(watchedValues))
+    back()
+  }
 
   const onSubmitHandler: SubmitHandler<FormState> = async (data) => {
     dispatch(updateFormData(data))
@@ -72,7 +78,7 @@ export const AboutStep: FC<AboutStepProps> = ({ back, next }) => {
           <div className={s.lengthChars}>{lengthChars}</div>
 
           <div className={'buttons'}>
-            <Button variant='secondary' onClick={back}>
+            <Button variant='secondary' onClick={handleBack}>
               Назад
             </Button>
             <Button type='submit'>Далее</Button>

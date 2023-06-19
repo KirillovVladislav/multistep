@@ -29,9 +29,10 @@ export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors }
   } = useForm<FormState>({
-    mode: 'onChange',
+    mode: 'all',
     resolver: yupResolver(advantagesSchema),
     defaultValues: formData
   })
@@ -50,7 +51,11 @@ export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
     dispatch(updateFormData(data))
     next()
   }
-
+  const watchedValues = watch()
+  const handleBack = () => {
+    dispatch(updateFormData(watchedValues))
+    back()
+  }
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
       <div className='flex'>
@@ -129,7 +134,7 @@ export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
       </div>
 
       <div className={'buttons'}>
-        <Button variant='secondary' onClick={back}>
+        <Button variant='secondary' onClick={handleBack}>
           Назад
         </Button>
         <Button type='submit'>Далее</Button>
