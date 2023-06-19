@@ -40,8 +40,9 @@ export const AboutStep: FC<AboutStepProps> = ({ back, next }) => {
   })
 
   const lengthChars = watch('about')?.replace(/\s/g, '').length
-  const watchedValues = watch()
+
   const handleBack = () => {
+    const watchedValues = watch()
     dispatch(updateFormData(watchedValues))
     back()
   }

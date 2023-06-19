@@ -51,8 +51,9 @@ export const AdvantagesStep: FC<AdvdantagesStepProps> = ({ next, back }) => {
     dispatch(updateFormData(data))
     next()
   }
-  const watchedValues = watch()
+
   const handleBack = () => {
+    const watchedValues = watch()
     dispatch(updateFormData(watchedValues))
     back()
   }
