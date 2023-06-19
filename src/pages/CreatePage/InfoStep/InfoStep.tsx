@@ -30,7 +30,6 @@ export const InfoStep: FC<InfoStepProps> = ({ next, back }) => {
   })
 
   const onSubmitHandler: SubmitHandler<FormState> = (data) => {
-    console.log(data)
     dispatch(updateFormData(data))
     next()
   }

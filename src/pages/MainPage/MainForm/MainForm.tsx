@@ -44,12 +44,12 @@ export const MainForm = () => {
           label='Номер телефона'
           id='phone'
           type='phone'
-          disabled
         />
         <Input
           disabled
           {...register('email')}
           error={errors.email}
+          defaultValue={7952893232}
           label='Email'
           id='email'
           type='email'
