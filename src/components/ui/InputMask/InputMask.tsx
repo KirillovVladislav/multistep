@@ -24,7 +24,7 @@ export const InputMask = forwardRef<HTMLInputElement, Omit<MaskFieldProps, 'tag'
 
         <ReactInputMask
           name={name}
-          ref={ref}
+          inputRef={ref}
           className={cn(s.input, { [s.fill]: fill })}
           mask={mask!}
           {...rest}
