@@ -38,6 +38,7 @@ export const MainForm = () => {
     <form className={s.form} onSubmit={handleSubmit(onSubmitHandler)}>
       <div className={s.inputWrapper}>
         <InputMask
+          disabled
           {...register('phone')}
           error={errors.phone}
           name='phone'
@@ -45,6 +46,7 @@ export const MainForm = () => {
           label='Номер телефона'
           id='phone'
           type='phone'
+          defaultValue={formData.phone}
         />
         <Input
           disabled
